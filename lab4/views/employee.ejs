@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3"><%= title %></h1>
+            
+            <% if(action == 'add') { %>
+                <div class="card">
+                <div class="card-header">Insert Form</div>
+                <div class="card-body">
+                    <form method="POST" action="/employee/add_data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Manager Id</label>
+                                    <input type="number" name="manager_id" id="manager_id" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Employee Id</label>
+                                    <input type="number" name="employee_id" id="employee_id" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Employee Name</label>
+                                    <input type="text" name="employee_name" id="employee_name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Employee Surname</label>
+                                    <input type="text" name="employee_surname" id="employee_surname" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Employee Position</label>
+                                    <input type="text" name="employee_position" id="employee_position" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Employee Hire Date</label>
+                                    <input type="date" name="employee_hire_date" id="employee_hire_date" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit_button" class="btn btn-primary" value="Add" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <% } else if(action == 'edit') { %>
+                <div class="card">
+                    <div class="card-header">Edit Form</div>
+                    <div class="card-body">
+                        <form method="POST" action="/employee/edit/<%= employee.employee_id %>">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Manager Id</label>
+                                        <input type="number" name="manager_id" id="manager_id" class="form-control" value="<%= employee.manager_id %>" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Employee Id</label>
+                                        <input type="number" name="employee_id" id="employee_id" class="form-control" value="<%= employee.employee_id %>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Employee Name</label>
+                                        <input type="text" name="employee_name" id="employee_name" class="form-control" value="<%= employee.employee_name %>" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Employee Surname</label>
+                                        <input type="text" name="employee_surname" id="employee_surname" class="form-control" value="<%= employee.employee_surname %>" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Employee Position</label>
+                                        <input type="text" name="employee_position" id="employee_position" class="form-control" value="<%= employee.employee_position %>" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Employee Hire Date</label>
+                                        <input type="date" name="employee_hire_date" id="employee_hire_date" class="form-control" value="<%= employee.employee_hire_date %>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" name="submit_button" class="btn btn-primary" value="Edit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <% } else { %>
+                
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <a href="/employee/add" class="btn btn-success btn-sm float-end">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Manager Id</th>
+                                <th>Employee Id</th>
+                                <th>Employee Name</th>
+                                <th>Employee Surname</th>
+                                <th>Employee Position</th>
+                                <th>Employee Hire Date</th>
+                            </tr>
+                            <%
+                            if(sampleData.length > 0)
+                            {
+                                sampleData.forEach(function(data){
+                            %>
+                            <tr>
+                                <td><%= data.manager_id %></td>
+                                <td><%= data.employee_id %></td>
+                                <td><%= data.employee_name %></td>
+                                <td><%= data.employee_surname %></td>
+                                <td><%= data.employee_position %></td>
+                                <td><%= data.employee_hire_date %></td>
+                                <td><a href="/employee/edit/<%= data.employee_id %>" class="btn btn-primary btn-sm">Edit</a></td>
+                                <td><a href="/employee/delete/<%= data.employee_id %>" class="btn btn-danger btn-sm">Delete</a></td>
+                            </tr>
+                            <%
+                                });
+                            }
+                            else
+                            {
+                            %>
+                            <tr>
+                                <td colspan="5">No Data Found</td>
+                            </tr>
+                            <%
+                            }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+
+        </div> 
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
